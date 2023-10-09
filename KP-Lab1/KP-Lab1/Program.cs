@@ -1,14 +1,4 @@
-﻿using iTextSharp.text.pdf;
-using System.ComponentModel;
-using System.IO;
-using System.Reflection.Metadata;
-using System;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Document = iTextSharp.text.Document;
-
-class Program
+﻿class Program
 {
     [STAThread]
     static void Main()
@@ -37,7 +27,7 @@ class Program
 
                 Console.WriteLine("Complete");
             }
-            else 
+            else
             { Console.WriteLine("File does not exist"); }
 
         }
@@ -52,7 +42,7 @@ class Program
         if (!File.Exists(path))
             throw new FileNotFoundException();
 
-           
+
         return true;
     }
 
@@ -70,7 +60,7 @@ class Program
                     string[] parts = line.Split();
                     if (parts.Length == 2)
                     {
-                        if (double.TryParse(parts[0],out double N) && double.TryParse(parts[1], out double K))
+                        if (double.TryParse(parts[0], out double N) && double.TryParse(parts[1], out double K))
                         {
                             if (N >= int.MinValue && N <= int.MaxValue && K >= int.MinValue && K <= int.MaxValue)
                             {
@@ -93,7 +83,7 @@ class Program
                     }
                 }
             }
-            
+
         }
         catch (IOException e)
         {
@@ -122,23 +112,15 @@ class Program
 
         try
         {
-            using (FileStream fs = new FileStream(fileName, FileMode.Create))
+            using (StreamWriter writer = new StreamWriter(fileName))
             {
-                Document doc = new Document();
-                PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-
-                doc.Open();
-
                 string data = $"{numbers[0]} {numbers[1]}";
+                writer.WriteLine(data);
+            }
 
-                Paragraph paragraph = new Paragraph(data);
-                doc.Add(paragraph);
+            string fullPath = Path.GetFullPath(fileName);
+            Console.WriteLine($"Data has been written to {fullPath}");
 
-                doc.Close();
-
-                string fullPath = Path.GetFullPath(fileName);
-                Console.WriteLine($"Data has been written to {fullPath}");
-            }            
         }
         catch (IOException e)
         {
@@ -235,9 +217,9 @@ class Program
                     remainingBlackStripes -= blackStripesInDigit;
                     break;
                 }
-                catch (CustomException e) 
+                catch (CustomException e)
                 {
-                    
+
                 }
             }
         }
