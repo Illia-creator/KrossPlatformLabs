@@ -1,0 +1,14 @@
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\bin\Debug\net7.0\KP-Lab3.exe
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\bin\Debug\net7.0\KP-Lab3.deps.json
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\bin\Debug\net7.0\KP-Lab3.runtimeconfig.json
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\bin\Debug\net7.0\KP-Lab3.dll
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\bin\Debug\net7.0\KP-Lab3.pdb
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.AssemblyInfoInputs.cache
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.AssemblyInfo.cs
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.csproj.CoreCompileInputs.cache
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.dll
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\refint\KP-Lab3.dll
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.pdb
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\KP-Lab3.genruntimeconfig.cache
+C:\Users\Illia\source\repos\KrossPlatformLabs\KP-Lab3\KP-Lab3\obj\Debug\net7.0\ref\KP-Lab3.dll
