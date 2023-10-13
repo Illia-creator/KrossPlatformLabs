@@ -6,6 +6,7 @@
         try
         {
             Console.WriteLine("Write Path To File");
+
             string path = Console.ReadLine();
             int[] numbers = new int[2];
             string[] result = new string[2];
@@ -101,6 +102,7 @@
         do
         {
             Console.Write("Enter the file name: ");
+
             fileName = Console.ReadLine();
             fileName = fileName + ".txt";
             fileExists = File.Exists(fileName);

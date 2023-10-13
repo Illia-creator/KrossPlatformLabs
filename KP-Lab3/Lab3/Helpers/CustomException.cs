@@ -1,5 +1,4 @@
-﻿namespace Lab2.Helpers;
-
+﻿namespace Lab3.Helpers;
 
 public class CustomException : Exception
 {
