@@ -1,7 +1,7 @@
-﻿namespace Lab2.Helpers;
+﻿namespace Lab3.Helpers;
 
 public static class FileManagement
-{
+{  
     public static string GetDataFromFile(string path)
     {
 
@@ -14,34 +14,33 @@ public static class FileManagement
         return modifiedContents;
     }
 
-    public static void WriteAnswer(int[] numbers)
+    public static void WriteAnswer(int numberOf)
     {
-        string fileName;
+        string fileName = string.Empty;
         bool fileExists;
 
-        do
-        {
-            Console.Write("Enter the file name: ");
-            fileName = Console.ReadLine();
-            fileExists = File.Exists(fileName);
-
-            if (fileExists)
+        
+            do
             {
-                Console.WriteLine("File already exists. Please choose a different name.");
-            }
-        } while (fileExists);
+                Console.Write("Enter the file name: ");
+                fileName = Console.ReadLine();
+                fileExists = File.Exists(fileName);
 
-        fileName = fileName + ".txt";
+                if (fileExists)
+                {
+                    Console.WriteLine("File already exists. Please choose a different name.");
+                }
+            } while (fileExists);
 
+            fileName = fileName + ".txt";
+        
         try
         {
             using (StreamWriter writer = new StreamWriter(fileName))
             {
-                foreach (int number in numbers)
-                {
-                    string data = number.ToString();
+                
+                    string data = numberOf.ToString();
                     writer.WriteLine(data);
-                }
             }
 
             string fullPath = Path.GetFullPath(fileName);
@@ -52,4 +51,4 @@ public static class FileManagement
             Console.WriteLine($"An error occurred while writing the file: {e.Message}");
         }
     }
-}
+} 

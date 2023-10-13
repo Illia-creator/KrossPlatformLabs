@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KP-Lab2", "KP-Lab2", "{54EF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2", "KP-Lab2\Lab2\Lab2.csproj", "{2790DF69-5D28-44B0-AE79-CDD2755EFED0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KP-Lab3", "KP-Lab3", "{3F986814-1632-4451-9183-045F9A3E70F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3", "KP-Lab3\Lab3\Lab3.csproj", "{905318FE-5610-4166-9656-67199C853A3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{2790DF69-5D28-44B0-AE79-CDD2755EFED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2790DF69-5D28-44B0-AE79-CDD2755EFED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2790DF69-5D28-44B0-AE79-CDD2755EFED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905318FE-5610-4166-9656-67199C853A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905318FE-5610-4166-9656-67199C853A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905318FE-5610-4166-9656-67199C853A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905318FE-5610-4166-9656-67199C853A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{200CBA38-DDB2-46C3-ACDA-654C24508800} = {8FCF90C8-91B7-4893-9A2F-1C0123718F00}
 		{2790DF69-5D28-44B0-AE79-CDD2755EFED0} = {54EF0017-AD0A-4528-88DF-CC6E2B916F4E}
+		{905318FE-5610-4166-9656-67199C853A3A} = {3F986814-1632-4451-9183-045F9A3E70F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2428937A-8428-45AB-9395-B79F9B9D4274}

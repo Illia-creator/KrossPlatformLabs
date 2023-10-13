@@ -71,7 +71,7 @@ public static class MainLogic
         int[] resultSeconds = new int[incomeData.NumbersLineParameters[2]];
 
         List<int> list = array.ToList();
-        int test = 0;
+
         int second = 0;
 
         while (list.Count() >= k)
@@ -82,7 +82,6 @@ public static class MainLogic
                 second++;
                 for (int j = 0; j < incomeData.NumbersLineParameters[2]; j++)
                 {
-                    test = list[i];
                     if (list[i] == incomeData.NumbersToFind[j])
                     {
                         resultSeconds[j] = second;

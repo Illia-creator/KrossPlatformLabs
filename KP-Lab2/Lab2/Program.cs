@@ -4,7 +4,7 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("Enter path to file: ");
+        Console.WriteLine("Enter path to file:");
         string filePath = Console.ReadLine();
 
         try
@@ -33,6 +33,7 @@ class Program
         catch (Exception ex)
         {
             Console.ForegroundColor = ConsoleColor.Red;
+
             Console.WriteLine(ex.Message);
             Console.ResetColor();
         }
