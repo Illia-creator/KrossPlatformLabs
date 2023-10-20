@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu1804"
+
+  config.vm.network "forwarded_port", guest: 80, host: 5000
+
+  config.vm.box_download_insecure = true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.memory = 2048
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https
+
+    # Install the .NET SDK
+    wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get update
+    sudo apt-get install -y dotnet-sdk-7.0
+
+    echo 'export PATH=$PATH:$HOME/.dotnet/tools' >> /home/vagrant/.bash_profile
+    # Add your local Windows machine's IP address and port where NuGet packages are hosted
+    su - vagrant -c "dotnet nuget add source -n ISyniavskyi http://192.168.56.1:5000/nuget/v3/index.json"
+
+    # Install your custom NuGet package
+    su - vagrant -c "dotnet tool install -g ISyniavskyi --version 1.0.0 --ignore-failed-sources"
+  SHELL
+end
