@@ -1,9 +1,17 @@
-﻿namespace Lab3.Helpers;
+﻿using System.Reflection;
+
+namespace Lab3.Helpers;
 
 public static class FileManagement
-{  
+{
     public static string GetDataFromFile(string path)
     {
+        if (string.IsNullOrEmpty(path))
+        {
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string desiredPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyLocation))), "Lab3", "Files", "INPUT3.txt");
+            path = desiredPath.Replace("\\bin\\Lab3", "");
+        }
 
         if (!File.Exists(path))
             throw new CustomException("File not found");
@@ -14,33 +22,26 @@ public static class FileManagement
         return modifiedContents;
     }
 
-    public static void WriteAnswer(int numberOf)
+    public static void WriteAnswer(int numberOf, string path)
     {
-        string fileName = string.Empty;
+        string fileName;
         bool fileExists;
 
-        
-            do
-            {
-                Console.Write("Enter the file name: ");
-                fileName = Console.ReadLine();
-                fileExists = File.Exists(fileName);
-
-                if (fileExists)
-                {
-                    Console.WriteLine("File already exists. Please choose a different name.");
-                }
-            } while (fileExists);
-
-            fileName = fileName + ".txt";
-        
+        if (!string.IsNullOrEmpty(path))
+            fileName = path;
+        else
+        {
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string desiredPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyLocation))), "Lab3", "Helpers", "Files", "OUTPUT3.txt");
+            fileName = desiredPath.Replace("\\bin\\Lab3", "");
+        }
         try
         {
             using (StreamWriter writer = new StreamWriter(fileName))
             {
-                
-                    string data = numberOf.ToString();
-                    writer.WriteLine(data);
+
+                string data = numberOf.ToString();
+                writer.WriteLine(data);
             }
 
             string fullPath = Path.GetFullPath(fileName);
@@ -51,4 +52,4 @@ public static class FileManagement
             Console.WriteLine($"An error occurred while writing the file: {e.Message}");
         }
     }
-} 
+}

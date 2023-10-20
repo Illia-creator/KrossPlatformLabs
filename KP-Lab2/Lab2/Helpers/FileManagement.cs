@@ -1,10 +1,17 @@
-﻿namespace Lab2.Helpers;
+﻿using System.Reflection;
+
+namespace Lab2.Helpers;
 
 public static class FileManagement
 {
     public static string GetDataFromFile(string path)
     {
-
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string desiredPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyLocation))), "Lab2", "Files", "INPUT2.txt");
+            path = desiredPath.Replace("\\bin\\Lab2", "");
+        }
         if (!File.Exists(path))
             throw new CustomException("File not found");
 
@@ -14,24 +21,21 @@ public static class FileManagement
         return modifiedContents;
     }
 
-    public static void WriteAnswer(int[] numbers)
+    public static void WriteAnswer(int[] numbers, string path)
     {
         string fileName;
         bool fileExists;
 
-        do
+        if (!string.IsNullOrEmpty(path))
         {
-            Console.Write("Enter the file name: ");
-            fileName = Console.ReadLine();
-            fileExists = File.Exists(fileName);
-
-            if (fileExists)
-            {
-                Console.WriteLine("File already exists. Please choose a different name.");
-            }
-        } while (fileExists);
-
-        fileName = fileName + ".txt";
+            fileName = path;
+        }
+        else
+        {
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string desiredPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyLocation))), "Lab2", "Files", "OUTPUT2.txt");
+            fileName = desiredPath.Replace("\\bin\\Lab2", "");
+        }
 
         try
         {
