@@ -1,0 +1,39 @@
+﻿@page
+@model Lab5.Web.Pages.LabsSelectModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Labs-Page</title>
+</head>
+<body>
+    <div>
+        @if (@Model.IsAuth)
+        {
+            <div>
+                <h1>Lab1</h1>
+                <p>
+                    Лабораторна 1
+                </p>
+            </div>
+            <div>
+                <h1>Lab2</h1>
+                <p>
+                    Лабораторна 2
+                </p>
+            </div>
+            <div>
+                <h1>Lab3</h1>
+                <p>
+                    Лабораторна 3
+                </p>
+            </div>
+        }
+        else
+        {
+            <p>Необхідно Авторезуватися</p>
+        }
+
+    </div>
+</body>
+</html>

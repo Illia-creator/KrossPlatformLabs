@@ -11,7 +11,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<UserDbContext>((serviceProvider, dbContextOptionsBuilder) =>
@@ -38,8 +37,21 @@ builder.Services.AddIdentityServer()
         operationalStoreOptions.ResolveDbContextOptions = ResolveDbContextOptions;
     });
 
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseIdentityServer();
+
+app.UseAuthorization();
+
+app.MapRazorPages();
 
 if (app.Environment.IsDevelopment())
 {
@@ -93,7 +105,7 @@ if (app.Environment.IsDevelopment())
         await configurationDbContext.Clients.AddRangeAsync(
             new Client
             {
-                ClientId = Guid.NewGuid().ToString(),
+                ClientId = "78b65a7f-5d4d-48fe-81cd-1c211928c3d7",
                 ClientSecrets = new List<Secret> { new("secret".Sha512()) },
                 ClientName = "Web Application",
                 AllowedGrantTypes = GrantTypes.Code,
@@ -116,13 +128,11 @@ if (app.Environment.IsDevelopment())
     }
 }
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapRazorPages();
 
 app.Run();
