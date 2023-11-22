@@ -23,7 +23,7 @@ namespace Lab5.Web.Pages
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", await HttpContext.GetTokenAsync("access_token"));
 
-            var secret = await httpClient.GetAsync("https://localhost:7001/start");
+            var secret = await httpClient.GetAsync("https://localhost:7001/App");
 
             if (!string.IsNullOrWhiteSpace(secret.Content.ToString()))
                 IsAuth = true;
