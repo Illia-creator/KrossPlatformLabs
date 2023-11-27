@@ -4,16 +4,20 @@ namespace Lab6.Api.Entities;
 
 public class Address : BaseEntity
 {
+    public Address()
+    {
+        
+    }
     public Address(
-       string id,
-       string line1NumberBuilding,
-       string line2NumberBuilding,
-       string line3NumberBuilding,
-       string city,
-       string zipPostCode,
-       string stateProvinceCountry,
-       string country,
-       string otherAddressDetails) : base(id)
+        string id,
+        string line1NumberBuilding,
+        string line2NumberBuilding,
+        string line3NumberBuilding,
+        string city,
+        string zipPostCode,
+        string stateProvinceCountry,
+        string country,
+        string otherAddressDetails) : base(id)
     {
         Line1NumberBuilding = line1NumberBuilding;
         Line2NumberBuilding = line2NumberBuilding;

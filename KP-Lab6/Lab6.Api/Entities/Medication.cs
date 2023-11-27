@@ -25,6 +25,7 @@ public class Medication : BaseEntity
     public double MedicationCost { get; }
     public string MedicationOtherDetails { get; }
 
+    public GenericMedication GenericMedication { get; }
     public List<PrescriptionItem> PrescriptionItems { get; } = new List<PrescriptionItem>();
     public List<ItemOrdered> ItemsOrdered { get; } = new List<ItemOrdered>();
 

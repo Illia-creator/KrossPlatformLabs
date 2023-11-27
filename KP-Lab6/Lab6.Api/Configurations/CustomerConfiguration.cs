@@ -15,6 +15,7 @@ namespace Lab6.Api.Configurations
             builder.Property(c => c.CustomerLastName).IsRequired();
             builder.Property(c => c.CustomerPhone).IsRequired();
             builder.Property(c => c.DateOriginalyJoined).IsRequired();
+            builder.Property(c => c.CustomerPassword).IsRequired();
             builder.Property(c => c.CreditCardNumber).IsRequired();
             builder.Property(c => c.DateCardExpiry).IsRequired();
             builder.Property(c => c.OtherCustomerDetails);

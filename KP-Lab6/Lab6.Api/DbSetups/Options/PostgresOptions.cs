@@ -4,6 +4,6 @@
     {
         public string PostgresConnection { get; set; } = string.Empty;
 
-        public bool IsEnable { get; set; } = false;
+        public bool IsEnable { get; set; } = true;
     }
 }

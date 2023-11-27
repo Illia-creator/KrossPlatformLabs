@@ -2,6 +2,10 @@
 {
     public class GenericToBrandNameCorrespondence
     {
+        public GenericToBrandNameCorrespondence()
+        {
+
+        }
         public GenericToBrandNameCorrespondence(string brandNameMedicationId, string genericMedicationsId)
         {
             BrandNameMedicationId = brandNameMedicationId;

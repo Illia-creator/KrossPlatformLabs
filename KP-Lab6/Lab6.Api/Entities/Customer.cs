@@ -12,7 +12,8 @@ public class Customer : BaseEntity
         DateOnly dateOriginalyJoined,
         string creditCardNumber,
         DateOnly dateCardExpiry,
-        string otherCustomerDetails) : base(id)
+        string otherCustomerDetails,
+        string customerPassword) : base(id)
     {
         AddressId = addressId;
         CustomerFirstName = customerFirstName;
@@ -22,12 +23,14 @@ public class Customer : BaseEntity
         CreditCardNumber = creditCardNumber;
         DateCardExpiry = dateCardExpiry;
         OtherCustomerDetails = otherCustomerDetails;
+        CustomerPassword = customerPassword;
     }
 
     public string AddressId { get; }
     public string CustomerFirstName { get; }
     public string CustomerLastName { get; }
     public string CustomerPhone { get; }
+    public string CustomerPassword { get; }
     public DateOnly DateOriginalyJoined { get; }
     public string CreditCardNumber { get; }
     public DateOnly DateCardExpiry { get; }

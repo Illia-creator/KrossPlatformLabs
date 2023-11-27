@@ -1,4 +1,5 @@
 ﻿using Lab6.Api.Entities;
+using Lab6.Api.Entities.Relations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab6.Api.Dal;
@@ -15,6 +16,7 @@ public class LabDbContext : DbContext
     public DbSet<PharmaceuticalCompany> PharmaceuticalCompanies => Set<PharmaceuticalCompany>();
     public DbSet<Prescription> Prescriptions => Set<Prescription>();
     public DbSet<PrescriptionItem> PrescriptionItems => Set<PrescriptionItem>();
+    public DbSet<GenericToBrandNameCorrespondence> GenericToBrandNameCorrespondences => Set<GenericToBrandNameCorrespondence>();
 
     public LabDbContext(DbContextOptions<LabDbContext> options) : base(options)
     {

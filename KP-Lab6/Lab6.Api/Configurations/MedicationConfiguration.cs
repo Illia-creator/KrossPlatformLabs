@@ -16,6 +16,10 @@ namespace Lab6.Api.Configurations
             builder.Property(m => m.MedicationCost).IsRequired();
             builder.Property(m => m.MedicationOtherDetails);
 
+            builder.HasOne(m => m.GenericMedication)
+           .WithOne(g => g.Medication)
+           .HasForeignKey<GenericMedication>(g => g.MedicationId);
+
             builder.HasMany(m => m.PrescriptionItems)
                    .WithOne(pi => pi.Medication)
                    .HasForeignKey(pi => pi.MedicationId);
