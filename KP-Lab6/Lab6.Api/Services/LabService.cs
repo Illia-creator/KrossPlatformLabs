@@ -105,6 +105,7 @@ namespace Lab6.Api.Services
                jwt.Expires
             );
 
+          // return authResponse;
             _contextStorage.Set(authResponse, "auth_data");
         }
 

@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h3>Login</h3>
+    <div>
+        <input type="text" id="UserName" placeholder="Username" /><br />
+        <input type="text" id="UserSurname" placeholder="UserSurname" /><br />
+        <input type="password" id="Password" placeholder="Password" /><br />
+       
+        <button onclick="LoginAsync()">Login</button>
+    </div>
+
+    <script>
+        
+
+        async function LoginAsync() {
+            var userName = document.getElementById('UserName').value;
+            var userSurname = document.getElementById('UserSurname').value;
+            var password = document.getElementById('Password').value;
+
+            var requestUrl = 'http://localhost:5000/api/lab/login'; 
+
+            var response = await fetch(requestUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    userSurname: userSurname,
+                    password: password
+                })
+            });
+
+            console.log(response)
+
+            if (response.ok) {
+                window.location.href = '/medications';
+            }
+        }
+    </script>
+</div>

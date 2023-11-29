@@ -1,0 +1,183 @@
+﻿@page
+@model Labs6_7.Web.Pages.MedicationsModel
+@{
+    ViewData["Title"] = "Medications page";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form id="filterForm">
+    <label for="searchColumn">Search Column:</label>
+    <input type="text" id="searchColumn" name="searchColumn"><br><br>
+
+    <label for="searchPhrase">Search Phrase:</label>
+    <input type="text" id="searchPhrase" name="searchPhrase"><br><br>
+
+    <button type="button" onclick="getFilteredCustomers()">Filter Customers</button>
+    <button type="button" onclick="cleanFilters()">Clean Filters</button>
+</form>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Phone</th>
+            <th>Order Status Code</th>
+            <th>Order Delivered</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var medication in Model.Medications)
+        {
+            <tr>
+                <td>@medication.id</td>
+                <td>@medication.medicationName</td>
+                <td>@medication.medicationDescription</td>
+                <td>@medication.medicationCost</td>
+                <td>@medication.brandMedicationName</td>
+                <td>@medication.brandMedicationCost</td>
+                <td>@medication.brandMedicationDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="medicationModal" tabindex="-1" role="dialog" aria-labelledby="medicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="medicationModalLabel">Medication Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID:</strong> <span id="medicationId"></span></p>
+                <p><strong>Naming:</strong> <span id="medicationName"></span></p>
+                <p><strong>Description:</strong> <span id="medicationDescription"></span></p>
+                <p><strong>Cost:</strong> <span id="medicationCost"></span></p>
+                <p><strong>Brand Name:</strong> <span id="brandMedicationName"></span></p>
+                <p><strong>Brand Cost:</strong> <span id="brandMedicationCost"></span></p>
+                <p><strong>Brand Description:</strong> <span id="brandMedicationDescription"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getFilteredMedications() {
+        const searchColumn = document.getElementById('searchColumn').value;
+        const searchPhrase = document.getElementById('searchPhrase').value;
+
+        const url = new URL('http://localhost:5000/api/lab');
+        url.searchParams.append('searchColumn', searchColumn);
+        url.searchParams.append('searchPhrase', searchPhrase);
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                renderTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function renderTable(medications) {
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; // Clear existing table rows
+
+        console.log("Received medications:", medications); // Log the received data
+
+        if (Array.isArray(medications)) {
+            medications.forEach(medication => {
+                console.log("medication:", medication); // Log each customer object
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                                <td>${medication.id}</td>
+                        <td>${medication.medicationName} < /td>
+                    < td > ${medication.medicationDescription} < /td>
+                        < td > ${medication.medicationCost} < /td>
+                            < td > ${medication.BrandMedicationName} < /td>
+                                < td > ${medication.BrandMedicationCost} < /td>
+                                    < td > ${medication.BrandMedicationDescription} < /td>
+                        `;
+                tbody.appendChild(row);
+
+                // Add click event listener to each row
+                row.addEventListener('click', function () {
+                    showCustomerDetails(customer.id, customer.lastName, customer.userName, customer.phone, customer.orderStatusCode, customer.orderDelivered, customer.price);
+                });
+            });
+        } else {
+            console.error("Invalid customer data format."); // Log an error if the data format is unexpected
+        }
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date instanceof Date && !isNaN(date) ? date.toISOString().slice(0, 10) : '';
+    }
+
+    function cleanFilters() {
+        fetch('http://localhost:5000/api/v1/customers/orders', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                renderTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function showMedicationDetails(id, medicationName, medicationDescription, medicationCost, brandMedicationName, brandMedicationCost, brandMedicationDescription) {
+        document.getElementById('medicationId').innerText = id;
+        document.getElementById('medicationName').innerText = medicationName;
+        document.getElementById('medicationDescription').innerText = medicationDescription;
+        document.getElementById('medicationCost').innerText = medicationCost;
+        document.getElementById('brandMedicationName').innerText = brandMedicationName;
+        document.getElementById('brandMedicationCost').innerText = brandMedicationCost;
+        document.getElementById('brandMedicationDescription').innerText = brandMedicationDescription;
+
+        $('#medicationModal').modal('show');
+    }
+
+    function closeModal() {
+        $('#medicationModal').modal('hide');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('click', function () {
+                const medicationId = this.querySelector('td:first-child').innerText;
+                const medicationName = this.querySelector('td:nth-child(2)').innerText;
+                const medicationDescription = this.querySelector('td:nth-child(3)').innerText;
+                const medicationCost = this.querySelector('td:nth-child(4)').innerText;
+                const brandMedicationName = this.querySelector('td:nth-child(5)').innerText;
+                const brandMedicationCost = this.querySelector('td:nth-child(6)').innerText;
+                const brandMedicationDescription = this.querySelector('td:nth-child(7)').innerText;
+
+                showMedicationDetails(medicationId, medicationName, medicationDescription, medicationCost, brandMedicationName, brandMedicationCost, brandMedicationDescription);
+            });
+        });
+
+        const modalCloseButton = document.querySelector('#medicationModal .close');
+        modalCloseButton.addEventListener('click', closeModal);
+    });
+</script>
