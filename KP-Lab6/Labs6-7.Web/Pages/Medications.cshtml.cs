@@ -16,11 +16,11 @@ public class MedicationsModel : PageModel
     }
 
     public List<MedicationResponse> Medications { get; set; }
-    public async void OnGet()
+    public async Task OnGetAsync()
     {
         var httpClient = _clientFactory.CreateClient();
 
-        var authData = await httpClient.GetAsync("http://localhost:5000/api/v1/tokens");
+        var authData = await httpClient.GetAsync("http://localhost:5000/api/lab/tokens");
 
         var content = await authData.Content.ReadAsStringAsync();
 
@@ -39,7 +39,7 @@ public class MedicationsModel : PageModel
             }
         }
 
-        var response = await httpClient.GetAsync("http://localhost:5000/api/v1/customers/orders");
+        var response = await httpClient.GetAsync("http://localhost:5000/api/lab/medications");
 
         if (response.IsSuccessStatusCode) Medications = await response.Content.ReadFromJsonAsync<List<MedicationResponse>>();
         else Medications = new List<MedicationResponse>();

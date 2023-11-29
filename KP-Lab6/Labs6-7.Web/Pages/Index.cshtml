@@ -22,7 +22,7 @@
             var userSurname = document.getElementById('UserSurname').value;
             var password = document.getElementById('Password').value;
 
-            var requestUrl = 'http://localhost:5000/api/lab/login'; 
+            var requestUrl = 'http://localhost:5000/api/lab/login'
 
             var response = await fetch(requestUrl, {
                 method: 'POST',
@@ -30,8 +30,8 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    userName: userName,
-                    userSurname: userSurname,
+                    userFirstName: userName,
+                    userLastName: userSurname,
                     password: password
                 })
             });

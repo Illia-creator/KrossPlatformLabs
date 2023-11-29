@@ -18,9 +18,11 @@ public class HttpContextStorage : IHttpContextStorage
 
     public object Get<TEntity>(string key)
     {
-        if (_httpContextAccessor.HttpContext is null) return null;
+        if (_httpContextAccessor.HttpContext is null) 
+            return null;
 
-        if (_httpContextAccessor.HttpContext.Items.TryGetValue(key, out var entity)) return entity;
+        if (_httpContextAccessor.HttpContext.Items.TryGetValue(key, out var entity))
+            return entity;
 
         return null;
     }
