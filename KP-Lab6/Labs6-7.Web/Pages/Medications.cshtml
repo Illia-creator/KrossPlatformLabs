@@ -1,10 +1,87 @@
 ﻿@page
 @model Labs6_7.Web.Pages.MedicationsModel
-@{
-    ViewData["Title"] = "Medications page";
-}
 
-<h2>@ViewData["Title"]</h2>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #007bff;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    table {
+        margin-top: 30px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+
+    .modal-dialog {
+        max-width: 600px;
+    }
+
+    .modal-title {
+        color: #007bff;
+    }
+</style>
+
+<h2>Medications</h2>
 
 <form id="filterForm">
     <label for="searchColumn">Search Column:</label>
@@ -13,20 +90,20 @@
     <label for="searchPhrase">Search Phrase:</label>
     <input type="text" id="searchPhrase" name="searchPhrase"><br><br>
 
-    <button type="button" onclick="getFilteredCustomers()">Filter Customers</button>
+    <button type="button" onclick="getFilteredMedications()">Filter Customers</button>
     <button type="button" onclick="cleanFilters()">Clean Filters</button>
 </form>
 
 <table border="1">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Last Name</th>
-            <th>User Name</th>
-            <th>Phone</th>
-            <th>Order Status Code</th>
-            <th>Order Delivered</th>
-            <th>Price</th>
+            <th>id</th>
+            <th>medicationName</th>
+            <th>medicationDescription</th>
+            <th>medicationCost</th>
+            <th>brandMedicationName</th>
+            <th>brandMedicationCost</th>
+            <th>brandMedicationDescription</th>
         </tr>
     </thead>
     <tbody>
@@ -72,9 +149,9 @@
         const searchColumn = document.getElementById('searchColumn').value;
         const searchPhrase = document.getElementById('searchPhrase').value;
 
-        const url = new URL('http://localhost:5000/api/lab');
-        url.searchParams.append('searchColumn', searchColumn);
-        url.searchParams.append('searchPhrase', searchPhrase);
+        const url = new URL('http://localhost:5000/api/lab/medications_filter');
+        url.searchParams.append('SearchColumn', searchColumn);
+        url.searchParams.append('SearchValue', searchPhrase);
 
         fetch(url, {
             method: 'GET',
@@ -92,35 +169,38 @@
             });
     }
 
-    function renderTable(medications) {
-        const tbody = document.querySelector('tbody');
-        tbody.innerHTML = ''; // Clear existing table rows
 
-        console.log("Received medications:", medications); // Log the received data
+    function renderTable(medications) {
+
+
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; 
+
+        console.log("Received medications:", medications); 
 
         if (Array.isArray(medications)) {
             medications.forEach(medication => {
-                console.log("medication:", medication); // Log each customer object
+                console.log("medication:", medication); 
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                                <td>${medication.id}</td>
-                        <td>${medication.medicationName} < /td>
-                    < td > ${medication.medicationDescription} < /td>
-                        < td > ${medication.medicationCost} < /td>
-                            < td > ${medication.BrandMedicationName} < /td>
-                                < td > ${medication.BrandMedicationCost} < /td>
-                                    < td > ${medication.BrandMedicationDescription} < /td>
+                <td>${medication.id}</td>
+                <td>${medication.medicationName}</td>
+                <td>${medication.medicationDescription}</td>
+                <td>${medication.medicationCost}</td>
+                <td>${medication.brandMedicationName}</td>
+                <td>${medication.brandMedicationCost}</td>
+                <td>${medication.brandMedicationDescription}</td>
                         `;
                 tbody.appendChild(row);
 
-                // Add click event listener to each row
+               
                 row.addEventListener('click', function () {
-                    showCustomerDetails(customer.id, customer.lastName, customer.userName, customer.phone, customer.orderStatusCode, customer.orderDelivered, customer.price);
+                    showMedicationDetails(medication.id, medication.medicationName, medication.medicationDescription, medication.medicationCost, medication.brandMedicationName, medication.brandMedicationCost, medication.brandMedicationDescripton);
                 });
             });
         } else {
-            console.error("Invalid customer data format."); // Log an error if the data format is unexpected
+            console.error("Invalid medication"); 
         }
     }
 
@@ -130,7 +210,7 @@
     }
 
     function cleanFilters() {
-        fetch('http://localhost:5000/api/v1/customers/orders', {
+        fetch('http://localhost:5000/api/lab/medications', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

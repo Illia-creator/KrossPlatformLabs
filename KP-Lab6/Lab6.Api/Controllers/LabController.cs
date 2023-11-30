@@ -32,7 +32,6 @@ public class LabController : ControllerBase
         return Ok();
     }
 
-    [Authorize]
     [HttpGet("medications")]
     public async Task<IActionResult> GetMedications()
     {
@@ -41,7 +40,6 @@ public class LabController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize]
     [HttpGet("medications_filter")]
     public async Task<IActionResult> GetFilteredMedications([FromQuery] MedicationRequest request)
     {
@@ -52,7 +50,7 @@ public class LabController : ControllerBase
 }
 
 [ApiController]
-[Route("api/lab/tokens")]
+[Route("lab/tokens")]
 public class TokensV1Controller : ControllerBase
 {
     private readonly IHttpContextStorage _contextStorage;
