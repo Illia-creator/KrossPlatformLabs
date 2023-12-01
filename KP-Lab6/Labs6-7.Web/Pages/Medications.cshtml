@@ -1,0 +1,269 @@
+﻿@page
+@model Labs6_7.Web.Pages.MedicationsModel
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #007bff;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    table {
+        margin-top: 30px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+
+    .modal-dialog {
+        max-width: 600px;
+    }
+
+    .modal-title {
+        color: #007bff;
+    }
+</style>
+
+<h2>Medications</h2>
+
+<form id="filterForm">
+    <label for="searchColumn">Search Column:</label>
+    <input type="text" id="searchColumn" name="searchColumn"><br><br>
+
+    <label for="searchPhrase">Search Phrase:</label>
+    <input type="text" id="searchPhrase" name="searchPhrase"><br><br>
+
+    <button type="button" onclick="getFilteredMedications()">Filter Medications</button>
+    <button type="button" onclick="cleanFilters()">Clean Filters</button>
+</form>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>medicationName</th>
+            <th>medicationDescription</th>
+            <th>medicationCost</th>
+            <th>brandMedicationName</th>
+            <th>brandMedicationCost</th>
+            <th>brandMedicationDescription</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var medication in Model.Medications)
+        {
+            <tr>
+                <td>@medication.id</td>
+                <td>@medication.medicationName</td>
+                <td>@medication.medicationDescription</td>
+                <td>@medication.medicationCost</td>
+                <td>@medication.brandMedicationName</td>
+                <td>@medication.brandMedicationCost</td>
+                <td>@medication.brandMedicationDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="medicationModal" tabindex="-1" role="dialog" aria-labelledby="medicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="medicationModalLabel">Medication Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID:</strong> <span id="medicationId"></span></p>
+                <p><strong>Naming:</strong> <span id="medicationName"></span></p>
+                <p><strong>Description:</strong> <span id="medicationDescription"></span></p>
+                <p><strong>Cost:</strong> <span id="medicationCost"></span></p>
+                <p><strong>Brand Name:</strong> <span id="brandMedicationName"></span></p>
+                <p><strong>Brand Cost:</strong> <span id="brandMedicationCost"></span></p>
+                <p><strong>Brand Description:</strong> <span id="brandMedicationDescription"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getFilteredMedications() {
+        const searchColumn = document.getElementById('searchColumn').value;
+        const searchPhrase = document.getElementById('searchPhrase').value;
+
+        const url = new URL('http://localhost:5000/api/lab/medications_filter');
+        url.searchParams.append('SearchColumn', searchColumn);
+        url.searchParams.append('SearchValue', searchPhrase);
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                renderTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
+    function renderTable(medications) {
+
+
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; 
+
+        console.log("Received medications:", medications); 
+
+        if (Array.isArray(medications)) {
+            medications.forEach(medication => {
+                console.log("medication:", medication); 
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${medication.id}</td>
+                <td>${medication.medicationName}</td>
+                <td>${medication.medicationDescription}</td>
+                <td>${medication.medicationCost}</td>
+                <td>${medication.brandMedicationName}</td>
+                <td>${medication.brandMedicationCost}</td>
+                <td>${medication.brandMedicationDescription}</td>
+                        `;
+                tbody.appendChild(row);
+
+               
+                row.addEventListener('click', function () {
+                    showMedicationDetails(medication.id, 
+                        medication.medicationName, 
+                        medication.medicationDescription, 
+                        medication.medicationCost, 
+                        medication.brandMedicationName, 
+                        medication.brandMedicationCost,
+                        medication.brandMedicationDescription);
+                });
+            });
+        } else {
+            console.error("Invalid medication"); 
+        }
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date instanceof Date && !isNaN(date) ? date.toISOString().slice(0, 10) : '';
+    }
+
+    function cleanFilters() {
+        fetch('http://localhost:5000/api/lab/medications', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                renderTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function showMedicationDetails(id, medicationName, medicationDescription, medicationCost, brandMedicationName, brandMedicationCost, brandMedicationDescription) {
+        document.getElementById('medicationId').innerText = id;
+        document.getElementById('medicationName').innerText = medicationName;
+        document.getElementById('medicationDescription').innerText = medicationDescription;
+        document.getElementById('medicationCost').innerText = medicationCost;
+        document.getElementById('brandMedicationName').innerText = brandMedicationName;
+        document.getElementById('brandMedicationCost').innerText = brandMedicationCost;
+        document.getElementById('brandMedicationDescription').innerText = brandMedicationDescription;
+
+        $('#medicationModal').modal('show');
+    }
+
+    function closeModal() {
+        $('#medicationModal').modal('hide');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('click', function () {
+                const medicationId = this.querySelector('td:first-child').innerText;
+                const medicationName = this.querySelector('td:nth-child(2)').innerText;
+                const medicationDescription = this.querySelector('td:nth-child(3)').innerText;
+                const medicationCost = this.querySelector('td:nth-child(4)').innerText;
+                const brandMedicationName = this.querySelector('td:nth-child(5)').innerText;
+                const brandMedicationCost = this.querySelector('td:nth-child(6)').innerText;
+                const brandMedicationDescription = this.querySelector('td:nth-child(7)').innerText;
+
+                showMedicationDetails(medicationId, medicationName, medicationDescription, medicationCost, brandMedicationName, brandMedicationCost, brandMedicationDescription);
+            });
+        });
+
+        const modalCloseButton = document.querySelector('#medicationModal .close');
+        modalCloseButton.addEventListener('click', closeModal);
+    });
+</script>

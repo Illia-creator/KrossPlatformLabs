@@ -1,0 +1,87 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Lab 6";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .login-container {
+        max-width: 400px;
+        margin: 100px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #45a049;
+        }
+</style>
+
+<div class="text-center">
+    <h3>Login</h3>
+    <div>
+        <input type="text" id="UserName" placeholder="Username" /><br />
+        <input type="text" id="UserSurname" placeholder="UserSurname" /><br />
+        <input type="password" id="Password" placeholder="Password" /><br />
+       
+        <button onclick="LoginAsync()">Login</button>
+    </div>
+
+    <script>
+        
+
+        async function LoginAsync() {
+            var userName = document.getElementById('UserName').value;
+            var userSurname = document.getElementById('UserSurname').value;
+            var password = document.getElementById('Password').value;
+
+            var requestUrl = 'http://localhost:5000/api/lab/login'
+
+            var response = await fetch(requestUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userFirstName: userName,
+                    userLastName: userSurname,
+                    password: password
+                })
+            });
+
+            console.log(response)
+
+            if (response.ok) {
+                window.location.href = '/medications';
+            }
+        }
+    </script>
+</div>

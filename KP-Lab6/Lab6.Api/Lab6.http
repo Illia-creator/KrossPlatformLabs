@@ -1,0 +1,18 @@
+@url = http://localhost:5000/api
+
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImQzOTkyMzA0LTAxOWYtNDEyNi05YmIxLTFmNDIzNzk5NDg5OCIsInN1YiI6ImQzOTkyMzA0LTAxOWYtNDEyNi05YmIxLTFmNDIzNzk5NDg5OCIsImlhdCI6IjE3MDEyODcyNjU2MTIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdDEiLCJuYmYiOjE3MDEyODcyNjUsImV4cCI6MTcwMTI5MDg2NSwiaXNzIjoiS1AtTGFiNiIsImF1ZCI6IktQLUxhYjYifQ.1X0xqe9Juef3HaqmnuyHjM6itvxc1cbr53IN2TGme18
+
+###
+POST {{url}}/lab/login
+Content-Type: application/json
+
+{
+  "userFirstName": "test1",
+  "userLastName": "test1",
+  "password": "test1"
+}
+
+###
+GET {{url}}/lab/medications
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
