@@ -5,10 +5,10 @@ namespace Lab6.Api.Entities.Responses;
 public record MedicationResponse(
     string id, 
     string medicationName,
-    string medicationDescriptionstring, 
+    string medicationDescription, 
     double medicationCost,
-    string BrandMedicationName,
-    string BrandMedicationCost,
-    string BrandMedicationDescription
+    string brandMedicationName,
+    string brandMedicationCost,
+    string brandMedicationDescription
     );
 

@@ -90,7 +90,7 @@
     <label for="searchPhrase">Search Phrase:</label>
     <input type="text" id="searchPhrase" name="searchPhrase"><br><br>
 
-    <button type="button" onclick="getFilteredMedications()">Filter Customers</button>
+    <button type="button" onclick="getFilteredMedications()">Filter Medications</button>
     <button type="button" onclick="cleanFilters()">Clean Filters</button>
 </form>
 
@@ -196,7 +196,13 @@
 
                
                 row.addEventListener('click', function () {
-                    showMedicationDetails(medication.id, medication.medicationName, medication.medicationDescription, medication.medicationCost, medication.brandMedicationName, medication.brandMedicationCost, medication.brandMedicationDescripton);
+                    showMedicationDetails(medication.id, 
+                        medication.medicationName, 
+                        medication.medicationDescription, 
+                        medication.medicationCost, 
+                        medication.brandMedicationName, 
+                        medication.brandMedicationCost,
+                        medication.brandMedicationDescription);
                 });
             });
         } else {
