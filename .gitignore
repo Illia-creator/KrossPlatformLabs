@@ -10,6 +10,11 @@
 *.userosscache
 *.sln.docstates
 
+_ReSharper.*
+bin
+obj
+packages
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -70,6 +75,7 @@ StyleCopReport.xml
 
 # Files built by Visual Studio
 *_i.c
+*.dll
 *_p.c
 *_h.h
 *.ilk
@@ -393,104 +399,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-
-# Каталоги
-node_modules/
-bower_components/
-
-# Файли системи
-.DS_Store
-Thumbs.db
-
-# Локальні файли конфігурації
-*.log
-*.lock
-*.sqlite
-*.sqlite3
-*.swp
-
-# Файли налаштувань
-*.env
-*.ini
-*.conf
-
-# Виконуючі файли
-*.exe
-*.out
-*.dll
-
-# Компільовані файли
-*.o
-*.pyc
-*.class
-
-# Архіви
-*.zip
-*.gz
-*.tar.gz
-*.rar
-*.7z
-
-# Великі файли (якщо не використовуєте git-lfs)
-*.psd
-*.pdf
-*.doc
-*.xls
-*.ppt
-*.mp4
-*.avi
-
-# Зображення
-*.jpg
-*.jpeg
-*.png
-*.gif
-
-# Музика та відео
-*.mp3
-*.wav
-*.flv
-
-# Кеш та локальні файли IDE
-.idea/
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.suo
-*.user
-*.userosscache
-*.suo
-*.sdf
-*.opensdf
-*.cachefile
-*.log
-*.sqlite
-*.sqlite3
-*.ilk
-*.meta
-*.log
-*.bsc
-*.swp
-*.dbmdl
-[Tt]humbs.db
-*.pdf
-*.swp
-*.bak
-*.backup
-*.csv
-*.xls
-*.DS_Store
-*.tmp
-*.zip
-*.rar
-*.dat
-*.db
-*.db-journal
-*.log
-*.xcodeproj/
-
 
 # JetBrains Rider
 *.sln.iml
